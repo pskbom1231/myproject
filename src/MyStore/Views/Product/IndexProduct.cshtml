@@ -1,0 +1,35 @@
+﻿@model IEnumerable<MyStore.Models.Product>
+<script>
+    function doconfirm() {
+        aa = confirm("คุณต้องการลบรายการนี้ใช่หรือไม่");
+        if (aa != true) {
+            return false;
+        }
+    }
+</script>
+@{
+    ViewData["Title"] = "จัดการผลิตภัณฑ์";
+}
+<br /><br />
+<p>
+    <a asp-controller="Product" asp-action="CreateProduct">เพิ่มผลิตภัณฑ์</a>
+</p>
+<table class="table">
+    <tr>
+        <th>ชื่อผลิตภัณฑ์</th>
+        <th>ราคา</th>
+        <th>จำนวน</th>
+        <th colspan="2"></th>
+    </tr>
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>@item.ProductName</td>
+            <td>@item.Price</td>
+            <td>@item.Qty</td>
+            <td><p><a href="/Product/EditProduct/@item.ProductID">แก้ไข</a></td>
+            <td><p><a href="/Product/DeleteProduct/@item.ProductID" OnClick="return doconfirm();">ลบ</a></p></td>
+        </tr>
+
+    }
+</table>
